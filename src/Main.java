@@ -18,6 +18,17 @@ public class Main {
         list.add(item);
         System.out.println("Item added: " + item);
     }
+    public static int getListSize() {
+        return list.size();
+    }
+    public static void deleteItem(int index) {
+        if (index >= 0 && index < list.size()) {
+            String delItem = list.remove(index);
+            System.out.println("Item deleted: " + delItem);
+        } else {
+            System.out.println("Item not on list.");
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -29,6 +40,7 @@ public class Main {
             Main.printList();
             System.out.println("\nMenu:");
             System.out.println("A - Add an item");
+            System.out.println("D - Delete an item");
 
             cmd = SafeInput.getRegExString(in, "Please enter a command", "[AaDdIiPpQq]");
 
@@ -37,8 +49,11 @@ public class Main {
                     String newItem = SafeInput.getRegExString(in, "Enter the item to add: ", ".*");
                     Main.addItem(newItem);
                     break;
+                case "D":
+                    int deleteIndex = SafeInput.getRangedInt(in,"Enter the number of the item to delete: ", 1, Main.getListSize()) - 1;
+                    Main.deleteItem(deleteIndex);
+                    break;
             }
-            in.close();
         }
     }
 }

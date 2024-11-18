@@ -29,6 +29,14 @@ public class Main {
             System.out.println("Item not on list.");
         }
     }
+    public static void insertItem(int index, String item) {
+        if (index >= 0 && index <= list.size()) {
+            list.add(index, item);
+            System.out.println("Item inserted at position " + index + ": " + item);
+        } else {
+            System.out.println("Item not on list");
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -41,18 +49,25 @@ public class Main {
             System.out.println("\nMenu:");
             System.out.println("A - Add an item");
             System.out.println("D - Delete an item");
+            System.out.println("I - Insert an item");
 
             cmd = SafeInput.getRegExString(in, "Please enter a command", "[AaDdIiPpQq]");
 
             switch (cmd.toUpperCase()) {
                 case "A":
-                    String newItem = SafeInput.getRegExString(in, "Enter the item to add: ", ".*");
+                    String newItem = SafeInput.getRegExString(in, "Enter the item to add", ".*");
                     Main.addItem(newItem);
                     break;
                 case "D":
-                    int deleteIndex = SafeInput.getRangedInt(in,"Enter the number of the item to delete: ", 1, Main.getListSize()) - 1;
+                    int deleteIndex = SafeInput.getRangedInt(in,"Enter the number of the item to delete", 1, Main.getListSize()) - 1;
                     Main.deleteItem(deleteIndex);
                     break;
+                case "I":
+                    int insertIndex = SafeInput.getRangedInt(in,"Enter the position to insert the item", 1, Main.getListSize()) - 1;
+                    String insertItem = SafeInput.getRegExString(in,"Enter the item to insert", ".*");
+                    Main.insertItem(insertIndex, insertItem);
+                    break;
+
             }
         }
     }

@@ -3,36 +3,36 @@ import java.util.Scanner;
 
 public class Main {
     Scanner in = new Scanner(System.in);
-    private static ArrayList<String> list = new ArrayList<>();
+    private static final ArrayList<String> list = new ArrayList<>();
     public static void printList() {
         if (list.isEmpty()) {
-            System.out.println("The list is empty.");
+            System.out.println("There is nothing here");
         } else {
             System.out.println("Current List:");
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println((i + 1) + ". " + list.get(i));
+            for (int x = 0; x < list.size(); x++) {
+                System.out.println((x + 1) + ". " + list.get(x));
             }
         }
     }
     public static void addItem(String item) {
         list.add(item);
-        System.out.println("Item added: " + item);
+        System.out.println( item +" added");
     }
     public static int getListSize() {
         return list.size();
     }
-    public static void deleteItem(int index) {
-        if (index >= 0 && index < list.size()) {
-            String delItem = list.remove(index);
-            System.out.println("Item deleted: " + delItem);
+    public static void deleteItem(int content) {
+        if (content >= 0 && content < list.size()) {
+            String delItem = list.remove(content);
+            System.out.println(delItem + " deleted: " );
         } else {
             System.out.println("Item not on list.");
         }
     }
-    public static void insertItem(int index, String item) {
-        if (index >= 0 && index <= list.size()) {
-            list.add(index, item);
-            System.out.println("Item inserted at position " + index + ": " + item);
+    public static void insertItem(int content, String item) {
+        if (content >= 0 && content <= list.size()) {
+            list.add(content, item);
+            System.out.println("Item inserted at position " + content + ": " + item);
         } else {
             System.out.println("Item not on list");
         }
@@ -50,6 +50,8 @@ public class Main {
             System.out.println("A - Add an item");
             System.out.println("D - Delete an item");
             System.out.println("I - Insert an item");
+            System.out.println("P - Print the list");
+            System.out.println("Q - Quit");
 
             cmd = SafeInput.getRegExString(in, "Please enter a command", "[AaDdIiPpQq]");
 
@@ -63,12 +65,21 @@ public class Main {
                     Main.deleteItem(deleteIndex);
                     break;
                 case "I":
-                    int insertIndex = SafeInput.getRangedInt(in,"Enter the position to insert the item", 1, Main.getListSize()) - 1;
                     String insertItem = SafeInput.getRegExString(in,"Enter the item to insert", ".*");
+                    int insertIndex = SafeInput.getRangedInt(in,"Enter the position to insert the item", 1, Main.getListSize()) - 1;
                     Main.insertItem(insertIndex, insertItem);
                     break;
-
+                case "P":
+                    Main.printList();
+                    break;
+                case "Q":
+                    if (SafeInput.getYNConfirm(in,"Are you sure you want to quit (Y/N)")) {
+                        running = false;
+                        System.out.println("GET OUT!!");
+                    }
+                    break;
             }
         }
+        in.close();
     }
 }

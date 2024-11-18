@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
 public class SafeInput {
     public static String getNonZeroLenString(Scanner pipe, String prompt)
     {
